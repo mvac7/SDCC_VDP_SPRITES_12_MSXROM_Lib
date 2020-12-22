@@ -8,7 +8,7 @@ SET ROMFILENAME=TESTSPR
 SET CODELOC=0x4020
 SET ROMSIZE=2000
 SET CRT=libs\crt_MSX816kROM4000.rel
-SET LIB0=libs\VDP_TMS9918A_ROM.rel
+SET LIB0=libs\VDP_TMS9918A_MSXROM.rel
 SET LIB1=libs\VDP_SPRITES_12_MSXROM.rel 
 SET LIB2=
 SET LIB3=
@@ -35,7 +35,7 @@ if not exist build\%CFILENAME%.ihx goto COMPILA
 del build\%CFILENAME%.ihx
 :COMPILA
 echo SDCC Compiling...
-sdcc -mz80 -o build\ --code-loc %CODELOC% --data-loc 0xC000 --use-stdout --no-std-crt0 %CRT% %LIB0% %LIB1% %LIB2% %LIB3% %LIB4% %LIB5% %LIB6% %LIB7% %LIB8% %LIB9% %LIB10% %LIB11% %LIB12% src\%CFILENAME%.c
+sdcc -mz80 -o build\ --code-loc %CODELOC% --data-loc 0xC000 --use-stdout --no-std-crt0 %CRT% %LIB0% %LIB1% %LIB2% %LIB3% %LIB4% %LIB5% %LIB6% %LIB7% %LIB8% %LIB9% %LIB10% %LIB11% %LIB12% source\%CFILENAME%.c
 if not exist build\%CFILENAME%.ihx goto SALIDA
 hex2bin -e bin -l %ROMSIZE% build\%CFILENAME%.ihx
 copy build\%CFILENAME%.bin bin\%ROMFILENAME%.ROM

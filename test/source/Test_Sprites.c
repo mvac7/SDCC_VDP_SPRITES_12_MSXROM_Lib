@@ -1,12 +1,10 @@
 /* =============================================================================
   test VDP SPRITE MSXROM Library
-  Version: 1.2
-  Author: mvac7/303bcn
+  Version: 1.2 
+  Author: mvac7
   Architecture: MSX
   Format: ROM
   Programming language: C
-  WEB: 
-  mail: mvac7303b@gmail.com
     
 History of versions:
  - v1.2 (19/04/2018) Current version
@@ -16,7 +14,7 @@ History of versions:
 
 #include "../include/newTypes.h"
 #include "../include/msxBIOS.h"
-#include "../include/msxsystemvars.h"
+#include "../include/msxSystemVars.h"
 
 #include "../include/VDP_TMS9918A.h"
 #include "../include/VDP_SPRITES.h"
@@ -216,14 +214,18 @@ __endasm;*/
 /* =============================================================================
 One character input (waiting)
 ============================================================================= */
-char INKEY(){
+char INKEY() __naked
+{
 __asm
   push IX
   ld   IX,#0
   add  IX,SP  
+
   call CHGET
+
   ld   L,A
   pop  IX
+  ret
 __endasm;
 }
 
@@ -268,7 +270,7 @@ void VPOKEARRAY(uint vaddr, char* text)
    x(byte) - column (0 to 31 or 39)
    y(byte) - line   (0 to 23)
 ============================================================================= */
-void LOCATE(char x, char y)
+void LOCATE(char x, char y) __naked
 {
 x;y;
 __asm
@@ -285,6 +287,7 @@ __asm
   call POSIT
   
   pop  IX
+  ret
 __endasm;
 
 }
@@ -294,7 +297,7 @@ __endasm;
 /* =============================================================================
    Print a text in screen
 ============================================================================= */
-void PRINT(char* text)
+void PRINT(char* text) __naked
 { 
 text;
 __asm
@@ -312,14 +315,16 @@ nextCHAR:
   call CHPUT //Displays one character (BIOS)
   inc  HL
   jr   nextCHAR
+  
 ENDnext:  
   pop  IX
+  ret
 __endasm; 
 }
 
 
 
-char PEEK(uint address)
+char PEEK(uint address) __naked
 {
   address;
 __asm
@@ -332,13 +337,14 @@ __asm
   
   ld   L,(HL)
   
-  pop  IX  
+  pop  IX
+  ret  
 __endasm;
 }
 
 
 
-uint PEEKW(uint address)
+uint PEEKW(uint address) __naked
 {
   address;
 __asm
@@ -353,7 +359,8 @@ __asm
   ld   D,(HL)
   ex   DE,HL  
   
-  pop  IX  
+  pop  IX
+  ret  
 __endasm;
 }
 
@@ -364,10 +371,10 @@ void setFont()
 {
   uint ROMfont = PEEKW(CGTABL);
 
-  CopyToVRAM(ROMfont,BASE12,0x800);       //MSX font pattern
-  CopyToVRAM(ROMfont,BASE12+0x800,0x800); //MSX font pattern
+  CopyToVRAM(ROMfont,BASE12,0x800);        //MSX font pattern
+  CopyToVRAM(ROMfont,BASE12+0x800,0x800);  //MSX font pattern
   CopyToVRAM(ROMfont,BASE12+0x1000,0x800); //MSX font pattern
-  FillVRAM(BASE11,0x1800,0xF4);           //colors
+  FillVRAM(BASE11,0x1800,0xF4);            //colors
 
   return;
 }
