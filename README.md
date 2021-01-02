@@ -17,7 +17,7 @@ Provides a set of functions for displaying Sprites, both fully (PUTSPRITE) and s
 
 Contains the PUTSPRITE function similar to that of MSX BASIC.
 
-The SPRITES 1/2 version is the same as the SPRITES Library except that it edits the color / Early Clock parameters in the G3 screen mode (V9938), in a simplified way, as the MSX-BASIC does with the PUTSPRITE instruction. 
+The SPRITES 1/2 version is the same as the SPRITES Library except that it edits the Color/Early Clock parameters in the G3 screen mode (V9938), in a simplified way, as the MSX-BASIC does with the PUTSPRITE instruction. 
 
 The functions that assign a color, such as PUTSPRITE or SetSpriteColor, will do it in all the lines of the sprite, so it will NOT be useful to take advantage of the multicolored improvement of the sprites of the V9938.
 
@@ -46,8 +46,8 @@ They are designed for the development of applications for the first generation o
 The projected libraries are the following:
 - [SPRITES Small](https://github.com/mvac7/SDCC_VDP_SPRITES_S_MSXROM_Lib) - Basic functions for managing Sprites. It is more compact so it takes up less space in our application.
 - [SPRITES](https://github.com/mvac7/SDCC_VDP_SPRITES_MSXROM_Lib) - It includes the same functions as the Small version and adds to access specific parameters (positioning, color, pattern, visibility and EarlyClock).
-- [SPRITE 1/2](https://github.com/mvac7/SDCC_VDP_SPRITES_12_MSXROM_Lib) - Same as SPRITES but in the G3 screen mode (V9938), it treats the color parameters in a simplified way. Assign the color parameters and EarlyClock to all the lines of the Sprites.
-- SPRITE DUMP (In development) - Uses a buffer in RAM that has to be dumped in each interruption. Includes a Sprite Flicker, to allow viewing up to 8 sprites per line.
+- [SPRITES 1/2](https://github.com/mvac7/SDCC_VDP_SPRITES_12_MSXROM_Lib) - Same as SPRITES but in the G3 screen mode (V9938), it treats the color parameters in a simplified way. Assign the color parameters and EarlyClock to all the lines of the Sprites.
+- SPRITES DUMP (In development) - Uses a buffer in RAM that has to be dumped in each interruption. Includes a Sprite Flicker, to allow viewing up to 8 sprites per line.
 
 To optimize our development, I recommend building your library with only those functions you need.
 
